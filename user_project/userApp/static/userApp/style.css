@@ -1,0 +1,11 @@
+nav.bg_color {
+    background: linear-gradient(90deg, #8e44ad, #c0392b) !important;
+}
+
+div.bg_color {
+    background: linear-gradient(90deg, #8e44ad, #c0392b) !important;
+}
+
+.text_color {
+    color: #8e44ad;
+}
