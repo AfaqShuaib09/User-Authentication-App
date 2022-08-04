@@ -1,0 +1,11 @@
+{% comment %} Nav Bar to display on profile page {% endcomment %}
+<nav class="bg_color navbar navbar-light bg-light justify-content-between">
+    <div class="container-fluid">
+        <a class="navbar-brand fs-3 px-3" href="#">
+            <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-512.png" 
+            alt="usr-img" width="35" height="35" class="d-inline-block align-text-top">
+            User App
+        </a>
+        <a href="{% url 'logout' %}" class="btn btn-danger my-3 mx-3 px-3"> Logout </a>
+    </div>
+</nav>

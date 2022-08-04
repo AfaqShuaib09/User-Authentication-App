@@ -1,0 +1,123 @@
+{% extends 'userApp/base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block main_content %}
+<body>
+    {% include 'registration/logout_nav.html' %}
+        <div class="container w-100 border-primary bg-light rounded">
+            <div class="row mt-4">
+                <div class = "col-sm-4">
+                    <p class="fs-2 text-center text_color">
+                        Hi ! {{ user.username }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container w-100 h-100 border-primary justify-content-center my-5">
+            <section class="vh-100 bg-white">
+                <div class="container py-5 px-3">
+                    <div class="row d-flex align-items-center justify-content-center h-100">
+                        <div class="col col-lg-10 mb-2 mb-lg-0">
+                            <div class="card mb-3" style="border-radius: .5rem;">
+                                <div class="row g-0">
+                                    <div class="bg_color col-md-3 text-center text-white"
+                                        style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                        <img src="{{ profile.image.url }}" alt="Avatar" class="img-fluid my-5" style="width: 180px;" />
+                                        <h5>{{user.username}}</h5>
+                                        <p>{{ user.email }}</p>
+                                        <i class="far fa-edit mb-5"></i>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body p-4">
+                                            <h6>Information</h6>
+                                            <hr class="mt-0 mb-4">
+                                            <div class="row pt-1">
+                                                <div class="col-6 mb-3">
+                                                <h6>Name</h6>
+                                                <p class="text-muted">
+                                                    {% if profile.full_name %}
+                                                        {{ profile.full_name }}
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </p>
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                <h6> CNIC </h6>
+                                                <p class="text-muted">
+                                                    {% if profile.cnic %}
+                                                        {{ profile.cnic }}
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </p>
+                                                </div>
+                                            </div>
+                                            <div class="row pt-1">
+                                                <div class="col-6 mb-3">
+                                                <h6>Address</h6>
+                                                <p class="text-muted">
+                                                    {% if profile.address %}
+                                                        {{ profile.address }}
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </p>
+                                                </div>
+
+                                                <div class="col-6 mb-3">
+                                                <h6>Phone No.</h6>
+                                                <p class="text-muted">
+                                                    {% if profile.contact_number %}
+                                                        {{ profile.contact_number }}
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </p>
+                                                </div>
+
+                                            </div>
+                                            <div class="row pt-1">
+                                                <div class="col-6 mb-3">
+                                                <h6>Gender</h6>
+                                                {% if profile.gender %}
+                                                    {% if profile.gender == 'M' %}
+                                                    <p class="text-muted"> Male </p>
+                                                    {% elif profile.gender == 'F' %}
+                                                    <p class="text-muted"> Female </p>
+                                                    {% endif %}
+                                                {% else %}
+                                                <p class="text-muted">  Do not specified </p>
+                                                {% endif %}
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                <h6>Country</h6>
+                                                <p class="text-muted">
+                                                    {% if profile.country %}
+                                                        {{ profile.country.name }}
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </p>
+                                                </div>
+                                            </div>
+                                        <div>
+                                            <a href="{% url 'profile_edit' %}" class="btn btn-danger">
+                                                Edit Profile
+                                            </a>
+                                            
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+        </div>
+
+    {% include 'userApp/messages.html' %}
+</body>
+{% endblock %}

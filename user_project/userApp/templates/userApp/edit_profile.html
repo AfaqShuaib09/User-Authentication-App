@@ -1,0 +1,71 @@
+{% extends 'userApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Edit {% endblock %}
+
+{% block main_content %}
+<body>
+    {% include 'registration/logout_nav.html' %}
+
+    <div class="container w-100 h-100 border-primary justify-content-center my-5">
+        <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100 bg_color align-items-center">
+            <div class="card-body">
+                <div class="account-settings">
+                    <div class="user-profile mt-5">
+                        <div class="user-avatar">
+                            <img src="{{ user.profile.image.url }}" alt="usr_profile">
+                        </div>
+                        <p class="fs-3 text-center text-light fst-italic mt-5 text-decoration-underline">
+                            Username
+                            <h6 class="text-light fst-italic">
+                                {{ user.username }}
+                            </h6>
+                        </p>
+                        
+                        <p class="fs-3 text-center text-light fst-italic mt-5 text-decoration-underline">
+                            Email
+                            <h6 class="text-light fst-italic">
+                                {{user.email}}
+                            </h6>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-xl-7 col-lg-7 col-md-9 col-sm-9 col-9">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h5 class="mb-2 text-danger mb-3">Personal Details</h5>
+                        </div>
+                        <form method ="POST" enctype="multipart/form-data">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    {% csrf_token %}
+                                    {{ edit_form | crispy }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 my-4">
+                                    <div class="text-right">
+                                        <a href="{% url 'profile' %}" class="btn btn-secondary me-2">
+                                            Cancel
+                                        </a>
+                                        <input class="btn btn-danger" type="submit" value="Update"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</body>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'userApp/base.html'%}
+
+{% block title %} Signup {% endblock %}
+
+{% block main_content %}
+<body class="bg_body">
+    <div class="container center w-50 px-2 border-primary bg-light rounded">
+        <div class="row justify-content-around mt-4">
+            <div class = "col-sm-6">
+                <p class="fs-2 text-center text-dark">
+                    SignUp User 👤
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-around mt-1">
+            <div class = "col-sm-8">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ user_creation_form }}
+                    <input type="submit" value="SignUp" class="btn btn-primary my-3">
+                    <p class="fs-5">
+                        Already have an Account? 
+                        <a href="{% url 'login' %}" class="btn btn-primary my-3 mx-3"> Login </a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+     
+    {% include 'userApp/messages.html' %}
+
+</body>
+{% endblock main_content %}

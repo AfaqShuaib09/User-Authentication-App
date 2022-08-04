@@ -1,0 +1,51 @@
+{% extends 'userApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} login {% endblock %}
+
+{% block main_content %}
+<body class="bg_body">
+    <div class="container center w-50 px-2 border-primary bg-light rounded">
+        <div class="row justify-content-around mt-4">
+            <div class = "col-sm-6">
+                <p class="fs-2 text-center text-dark">
+                    Login User 👤
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-around mt-1">
+            <div class = "col-sm-8">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.username |as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.password |as_crispy_field}}
+                            {{ form.password.errors | as_crispy_errors }}
+                            {{ form.password.help_text | safe }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        {% if form.non_field_errors %}
+                        <ul class="list-style-none">
+                            <li>{{ form.non_field_errors }}</li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <input type="submit" value="Login" class="btn btn-primary my-3">
+                    <p class="fs-5">
+                        Don't have an Account? 
+                        <a href="{% url 'signup' %}" class="btn btn-primary my-3 mx-3"> Signup </a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'userApp/messages.html' %}
+</body>
+{% endblock %}
