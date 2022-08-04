@@ -5,7 +5,8 @@ from django.db import models
 from django_countries.fields import CountryField
 from PIL import Image
 
-from userApp.constant import (CNIC_VALIDATOR, CONTACT_NO_VALIDATOR, GENDER_CHOICES)
+from userApp.constant import (CNIC_VALIDATOR, CONTACT_NO_VALIDATOR,
+                              GENDER_CHOICES)
 
 
 # Create your models here.
@@ -30,7 +31,6 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         ''' Overrides the save method to resize the image to fit the requirements '''
         super().save(*args, **kwargs)
-        print(self.image.path)
         img = Image.open(self.image.path)
 
         if img.height > 300 or img.width > 300:

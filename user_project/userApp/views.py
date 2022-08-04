@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, logout
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from userApp.form import SignupForm, ProfileUpdateForm
+from userApp.form import ProfileUpdateForm, SignupForm
+
 
 # Create your views here.
 class SignupView(View):
