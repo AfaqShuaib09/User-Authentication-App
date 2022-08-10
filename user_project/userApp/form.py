@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from userApp.constant import GENDER_CHOICES
 from userApp.models import Profile
 
 
@@ -47,8 +48,25 @@ class ProfileUpdateForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control my-2 w-100'
         self.fields['cnic'].widget.attrs['pattern'] = '^[0-9]{5}-[0-9]{7}-[0-9]$'
         self.fields['contact_number'].widget.attrs['pattern'] = '^\+\d{12}$'
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect(), required=False)
 
     class Meta:
         ''' Meta class add to select the model to be used and determine order of form to be displayed '''
         model = Profile
         fields = ['full_name', 'cnic', 'contact_number', 'address', 'country', 'image', 'gender']
+
+
+class EmailUpdateForm(forms.ModelForm):
+    ''' User Email Update Form '''
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['class'] = 'form-control my-2 w-100'
+
+    class Meta:
+        model = User
+        fields = ['email']
+        error_messages = {
+            'email': {
+                'unique': 'This email is already in use.'
+            }
+        }

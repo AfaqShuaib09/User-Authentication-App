@@ -14,15 +14,16 @@ class Profile(models.Model):
     ''' User Profile Model '''
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='upload/', default='upload/default.png',
-                                help_text='Profile image for the user')
-    full_name = models.CharField(max_length=100, help_text='Full name of the user')
-    cnic = models.CharField(max_length=15 , help_text='CNIC of the user format: xxxxxx-xxxxxxx-x',
-                            validators=[ CNIC_VALIDATOR ])
-    contact_number = models.CharField(max_length=13, help_text='Phone number of the user format: +xxxxxxxxxxx',
-                                validators=[ CONTACT_NO_VALIDATOR ])
-    address = models.CharField(max_length=100, help_text='Address of the user')
+                                help_text='your profile picture')
+    full_name = models.CharField(max_length=100, help_text='your full name', blank=True)
+    cnic = models.CharField(max_length=15 , help_text='your CNIC in the following format: xxxxx-xxxxxxx-x',
+                            validators=[ CNIC_VALIDATOR ], blank=True)
+    contact_number = models.CharField(max_length=13,
+                                        help_text='your contact number in the following format: +xxxxxxxxxxx',
+                                        validators=[ CONTACT_NO_VALIDATOR ], blank=True)
+    address = models.CharField(max_length=200, help_text='your home address', blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='', blank=True)
-    country = CountryField(blank_label='(select country)', help_text='Country of the user')
+    country = CountryField(blank_label='(select country)', help_text='your country', blank=True)
 
     def __str__(self):
         ''' Overrides the str method to return the name of the user '''

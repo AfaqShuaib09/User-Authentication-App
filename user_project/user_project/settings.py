@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'crispy_forms',
     'django_countries',
-    'userApp.apps.UserappConfig',
+    'userApp.apps.UserAppConfig',
 ]
 
 MIDDLEWARE = [

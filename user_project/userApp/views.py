@@ -1,11 +1,11 @@
 ''' Views (User Interface) Definitions to be used in the User App '''
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from userApp.form import ProfileUpdateForm, SignupForm
+from userApp.form import EmailUpdateForm, ProfileUpdateForm, SignupForm
 
 
 # Create your views here.
@@ -29,8 +29,12 @@ class SignupView(View):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'User Registered Successfully. ✅')
-            return redirect('/login')
+            messages.info(request, "Registered Successfully. ✅. You are now logged in.")
+            new_user = authenticate(username=form.cleaned_data['username'],
+                                    password=form.cleaned_data['password1'],
+                                    )
+            login(request, new_user)
+            return redirect('/profile')
         else:
             return render(request, 'registration/signup.html', {'user_creation_form': form})
 
@@ -70,9 +74,11 @@ class EditView(View):
         ''' Returns the edit profile page to edit the user details '''
         if request.user.is_authenticated:
             user = request.user
-            form = ProfileUpdateForm(instance=user.profile)
+            user_profile_form = ProfileUpdateForm(instance=user.profile)
+            user_email_form = EmailUpdateForm(instance=user)
             context = {
-                'edit_form': form
+                'edit_form': user_profile_form,
+                'email_form': user_email_form
             }
             return render(request, 'userApp/edit_profile.html', context=context)
         else:
@@ -81,13 +87,17 @@ class EditView(View):
 
     def post(self, request):
         ''' Updates the user details and redirects to the profile page '''
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
+        user_profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        user_email_form = EmailUpdateForm(request.POST, instance=request.user)
+        if user_profile_form.is_valid():
+            user_profile_form.save()
+        if user_email_form.is_valid():
+            user_email_form.save()
             messages.success(request, 'User profile updated successfully. ✅')
             return redirect('/profile/')
         else:
-            return render(request, 'userApp/edit_profile.html', {'profile_form': form})
+            messages.warning(request, 'User profile update failed. ❌')
+            return redirect('/profile/edit/')
 
 
 def error_404(request, exception):
