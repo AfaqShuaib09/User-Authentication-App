@@ -2,9 +2,9 @@
 Custom management command to create a user.
 '''
 
-from pprint import pprint
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+
 
 class Command(BaseCommand):
     '''
@@ -25,5 +25,7 @@ class Command(BaseCommand):
             user = User.objects.create_user(username, email, password)
             user.save()
             self.stdout.write(self.style.SUCCESS('User created successfully'))
-        except Exception as IntegrityError:
+        except IntegrityError as e:
             self.stdout.write(self.style.ERROR('User Already Exists'))
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(e))
