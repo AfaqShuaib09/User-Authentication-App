@@ -9,3 +9,5 @@ GENDER_CHOICES = (
         ('F', 'Female'),
         ('', 'Do not specify')
 )
+REGISTRATION_ROUTES = [ '/login/', '/signup/']
+PROFILE_ROUTES = ['/profile/', '/profile/edit/']

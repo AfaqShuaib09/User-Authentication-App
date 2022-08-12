@@ -1,5 +1,6 @@
 """ user_project URL Configuration """
 
+from email import message
 from django.conf import settings
 from django.conf.urls import handler404
 from django.conf.urls.static import static
